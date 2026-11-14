@@ -13,7 +13,6 @@
   const resultCapacity = document.getElementById("result-capacity");
   const acceptedList = document.getElementById("accepted-list");
   const waitlistList = document.getElementById("waitlist-list");
-  const sourceLink = document.getElementById("source-link");
   const actions = [];
 
   function showError(message) {
@@ -143,6 +142,5 @@
   });
 
   capacityInput.addEventListener("input", invalidateResult);
-  sourceLink.addEventListener("click", (event) => event.preventDefault());
   renderActions();
 })();
