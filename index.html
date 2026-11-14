@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f7fb">
+    <title>活動報名與候補</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+        color: #17233b;
+        background: #f4f7fb;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+        background: #f4f7fb;
+      }
+
+      .page-shell {
+        width: min(100% - 32px, 760px);
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 42px 0 24px;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: #536b91;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.8rem, 7vw, 2.5rem);
+        line-height: 1.2;
+      }
+
+      .intro {
+        margin: 12px 0 0;
+        color: #536174;
+        line-height: 1.7;
+      }
+
+      main {
+        display: grid;
+        gap: 16px;
+        padding-bottom: 32px;
+      }
+
+      .panel {
+        padding: 22px;
+        border: 1px solid #e0e7f0;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 8px 24px rgb(25 48 84 / 5%);
+      }
+
+      h2 {
+        margin: 0 0 16px;
+        font-size: 1.2rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 0.95rem;
+        font-weight: 700;
+      }
+
+      input,
+      select,
+      button {
+        min-height: 44px;
+        font: inherit;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #c8d2e0;
+        border-radius: 10px;
+        background: #fff;
+        color: inherit;
+      }
+
+      input:focus,
+      select:focus,
+      button:focus-visible,
+      a:focus-visible {
+        outline: 3px solid #9ec7ff;
+        outline-offset: 2px;
+      }
+
+      .capacity-field {
+        max-width: 240px;
+        margin-bottom: 20px;
+      }
+
+      .operation-fields {
+        display: grid;
+        grid-template-columns: minmax(150px, 0.8fr) minmax(180px, 1.4fr) auto;
+        align-items: end;
+        gap: 12px;
+      }
+
+      .field-hint,
+      .muted {
+        color: #5d6c81;
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+
+      .field-hint {
+        margin: 7px 0 0;
+      }
+
+      button {
+        padding: 9px 16px;
+        border: 0;
+        border-radius: 10px;
+        background: #1957a6;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button:hover:not(:disabled) {
+        background: #104887;
+      }
+
+      button:disabled {
+        background: #9eabba;
+        cursor: not-allowed;
+      }
+
+      .secondary-button {
+        border: 1px solid #c8d2e0;
+        background: #fff;
+        color: #34445d;
+      }
+
+      .secondary-button:hover:not(:disabled) {
+        background: #f1f5fa;
+        color: #17233b;
+      }
+
+      .error-message {
+        margin: 14px 0 0;
+        color: #a42626;
+        font-weight: 700;
+      }
+
+      .status-message {
+        min-height: 1.5em;
+        margin: 12px 0 0;
+      }
+
+      .section-heading,
+      .action-row,
+      .result-columns {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .section-heading h2 {
+        margin: 0;
+      }
+
+      .action-list,
+      .result-list {
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .action-row {
+        padding: 10px 0;
+        border-bottom: 1px solid #edf0f5;
+      }
+
+      .action-label {
+        overflow-wrap: anywhere;
+      }
+
+      .delete-button {
+        min-height: 38px;
+        padding: 6px 11px;
+        border: 1px solid #e4b4b4;
+        background: #fff;
+        color: #9b2525;
+        white-space: nowrap;
+      }
+
+      .delete-button:hover:not(:disabled) {
+        background: #fff3f3;
+        color: #7e1919;
+      }
+
+      .calculate-button {
+        width: 100%;
+        margin-top: 18px;
+      }
+
+      .result-columns {
+        align-items: flex-start;
+      }
+
+      .result-group {
+        flex: 1;
+        min-width: 0;
+        padding: 16px;
+        border-radius: 12px;
+        background: #f5f8fc;
+      }
+
+      .result-group h3 {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .result-list {
+        margin-top: 10px;
+        padding-left: 1.35rem;
+        list-style: decimal;
+      }
+
+      .result-list li {
+        padding: 3px 0;
+        overflow-wrap: anywhere;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 20px 0 28px;
+        border-top: 1px solid #dfe6ef;
+        color: #536174;
+        font-size: 0.9rem;
+      }
+
+      footer p {
+        margin: 0;
+      }
+
+      footer a {
+        color: #1957a6;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header>
+        <p class="eyebrow">活動小工具</p>
+        <h1>活動報名與候補</h1>
+        <p class="intro">依序記錄報名與取消，計算最後的正取和候補名單。</p>
+      </header>
+
+      <main>
+        <section class="panel" aria-labelledby="entry-heading">
+          <h2 id="entry-heading">設定名額與操作</h2>
+          <div class="capacity-field">
+            <label for="capacity">正取名額</label>
+            <input id="capacity" name="capacity" type="number" min="1" step="1" inputmode="numeric" placeholder="例如：20">
+          </div>
+
+          <form id="operation-form">
+            <div class="operation-fields">
+              <div>
+                <label for="action">操作</label>
+                <select id="action" name="action">
+                  <option value="join">報名（join）</option>
+                  <option value="cancel">取消（cancel）</option>
+                </select>
+              </div>
+              <div>
+                <label for="participant-name">姓名</label>
+                <input id="participant-name" name="name" type="text" autocomplete="off" placeholder="輸入姓名">
+              </div>
+              <button type="submit">新增紀錄</button>
+            </div>
+            <p class="field-hint">姓名前後空白會自動去除；同一人重複報名不會重複列入。</p>
+          </form>
+          <p id="error-message" class="error-message" role="alert" hidden></p>
+          <p id="status-message" class="muted status-message" aria-live="polite"></p>
+        </section>
+
+        <section class="panel" aria-labelledby="actions-heading">
+          <div class="section-heading">
+            <div>
+              <h2 id="actions-heading">操作順序</h2>
+              <p class="muted">照實際發生順序新增，可刪除單筆紀錄修正。</p>
+            </div>
+            <button id="clear-actions" class="secondary-button" type="button" disabled>全部清空</button>
+          </div>
+          <p id="empty-actions" class="muted">目前沒有操作紀錄。</p>
+          <ol id="action-list" class="action-list" aria-label="報名與取消紀錄"></ol>
+          <button id="calculate" class="calculate-button" type="button">計算名單</button>
+        </section>
+
+        <section id="results" class="panel" aria-labelledby="results-heading" aria-live="polite" hidden>
+          <h2 id="results-heading">計算結果</h2>
+          <p id="result-capacity" class="muted"></p>
+          <div class="result-columns">
+            <section class="result-group" aria-labelledby="accepted-heading">
+              <h3 id="accepted-heading">正取名單</h3>
+              <ol id="accepted-list" class="result-list"></ol>
+            </section>
+            <section class="result-group" aria-labelledby="waitlist-heading">
+              <h3 id="waitlist-heading">候補名單</h3>
+              <ol id="waitlist-list" class="result-list"></ol>
+            </section>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>資通系 李振偉老師</p>
+        <p><a id="source-link" href="#" aria-disabled="true" title="本機版本尚未設定 GitHub 儲存庫網址">原始碼</a> <span class="muted">（部署後更新 GitHub 網址）</span></p>
+      </footer>
+    </div>
+    <script src="calc.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
