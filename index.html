@@ -264,6 +264,64 @@
         color: #1957a6;
         font-weight: 700;
       }
+
+      @media (max-width: 620px) {
+        .page-shell {
+          width: calc(100% - 24px);
+        }
+
+        header {
+          padding: 30px 0 20px;
+        }
+
+        .panel {
+          padding: 18px 14px;
+        }
+
+        .capacity-field {
+          max-width: none;
+        }
+
+        .operation-fields {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 14px;
+        }
+
+        .operation-fields > button {
+          width: 100%;
+        }
+
+        .section-heading {
+          align-items: flex-start;
+        }
+
+        .section-heading .secondary-button {
+          padding-right: 12px;
+          padding-left: 12px;
+          white-space: nowrap;
+        }
+
+        .result-columns {
+          flex-direction: column;
+        }
+
+        .result-group {
+          width: 100%;
+        }
+
+        .action-row {
+          align-items: flex-start;
+        }
+
+        .delete-button {
+          flex: 0 0 auto;
+        }
+
+        footer {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
     </style>
   </head>
   <body>
