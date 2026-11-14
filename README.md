@@ -1,28 +1,48 @@
-# 活動報名與候補
+# 活動報名與候補（event-signup）
 
-這是一個不需安裝套件或啟動伺服器的繁體中文靜態網頁。直接以瀏覽器開啟 `index.html` 即可使用。操作紀錄只保存在目前頁面；重新整理或關閉頁面後會清空。
+作者：資通系  李振偉老師
 
-## 使用方式
+## 工具介紹
 
-1. 輸入正取名額（1 以上的整數）。
-2. 依實際順序選擇「報名」或「取消」，輸入姓名並新增紀錄。
-3. 如有輸入錯誤，可刪除單筆紀錄；「全部清空」會清除紀錄並保留名額。
-4. 按「計算名單」查看最後的正取與候補名單。修改紀錄或名額後，需重新計算。
+這是可直接在瀏覽器操作的繁體中文靜態小工具，依序記錄報名與取消，再計算最後的正取與候補名單。資料只保留在目前頁面，重新整理後會清空。本機可直接開啟 `index.html`；`calc.js` 提供純函式 `signupResult(capacity, actions)`。
 
-姓名前後空白會自動去除；空白姓名會被拒絕。已在正取或候補的人重複報名不會重複列入，取消未報名者不影響名單。
+GitHub Pages：[https://appjust.github.io/event-signup/](https://appjust.github.io/event-signup/)
 
-## 計算函式
+儲存庫：[https://github.com/APPJust/event-signup](https://github.com/APPJust/event-signup)
 
-`calc.js` 提供純函式 `signupResult(capacity, actions)`，其中 `actions` 是依序排列的 `[action, name]` 陣列，`action` 為 `join` 或 `cancel`。函式回傳 `{ accepted, waitlist }`；非法輸入會以繁體中文 `Error` 訊息回報。
+## 怎麼執行測試
 
-瀏覽器以一般 `<script src="calc.js">` 載入；Node.js 測試以 `require("../calc.js")` 載入。
-
-## 執行測試
-
-需要 Node.js，於專案資料夾執行：
+在專案資料夾執行：
 
 ```sh
 node --test tests/calc.test.js
 ```
 
-頁尾「原始碼」目前是本機版佔位連結；部署時請換成 GitHub 儲存庫網址。
+## 測試結果
+
+- 官方測試：7 個
+- 自訂測試：5 個
+- 結果：全部通過（12/12）
+
+## 目標的完成條件
+
+完成 PLAN.md 的 3 個里程碑。
+
+完成條件：在專案資料夾執行 node --test tests/calc.test.js，全部測試通過（包含每一個官方測試），而且 index.html 打開後可以正常操作。
+
+## 計畫與里程碑
+
+計畫文件：[PLAN.md](PLAN.md)
+
+1. 里程碑 1：計算函式與測試 — 已完成（commit `728c3d8`）
+2. 里程碑 2：網頁操作流程 — 已完成（commit `1861232`）
+3. 里程碑 3：錯誤呈現、手機版與文件 — 已完成（commit `ec45295`）
+
+## 截圖
+
+- [screenshots/plan.png](screenshots/plan.png)
+- [screenshots/goal.png](screenshots/goal.png)
+
+![計畫截圖](screenshots/plan.png)
+
+![目標截圖](screenshots/goal.png)
